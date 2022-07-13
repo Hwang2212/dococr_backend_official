@@ -1,10 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import {getCustomers, getCustomersById} from '.queries';
 
 const app = express();
 const PORT = 5000;
-const db = queries
+const db = require('./queries')
 
 app.use(bodyParser.json());
 
