@@ -1,20 +1,26 @@
+// const http = require('http'); //CommonJS style
 import express from 'express';
-import bodyParser from 'body-parser';
+import cors from 'cors';
+import bodyParser from "body-parser";
+import {getCustomers,getCustomerByID,createCustomers} from './customer.js';
 
-const app = express();
+var app = express()
 const PORT = 5000;
-const db = require('./queries')
+app.use(cors())
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true,
+}))
 
-
-// Customer queries
-app.get('/customers', db.getCustomers)
-app.get('/customers/:id', db.getCustomersById)
-
-app.get('/', (req, res)=> {
-    res.send('Hello from Homepage.');
+app.get('/', (request,response)=>{
+  response.json({info: 'Node.js'})
 })
 
-//Listen to Request
-app.listen(PORT, ()=> console.log(`Server running on PORT: http://localhost:${PORT}`));
+app.get('/customer', getCustomers)
+app.get('/customer/:id', getCustomerByID)
+app.post('/customer', createCustomers)
+
+app.listen(PORT, ()=> {
+  console.log(`Server running on port http://localhost:${PORT}`)
+});
