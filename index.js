@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from "body-parser";
 import {getCustomers,getCustomerByID,createCustomers, updateCustomerByID} from './customer.js';
-import multer from 'multer';
+import multer from 'multer'; //For multiform data
 
 
 
