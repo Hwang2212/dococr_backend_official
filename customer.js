@@ -1,5 +1,5 @@
-import {pool} from './db.js'
-import { upload } from './middleware/upload.js';
+import {pool} from './configs/db.js'
+import {uploadICToGoogleDrive} from './googleDriveStorage/customer_ic.js'
 
 
 pool.on('error', ()=>{
@@ -33,9 +33,9 @@ export const createCustomers = (request, response) => {
 
     let {customer_name, ic, age, gender, email, phone_number, marital_status,race,nationality,corr_address,
         home_phone,office_phone,monthly_income,duties,business_nature} = request.body
-    
-    console.log(request.file);
-
+        
+    var customer_ic_path = "D:/DocOCR/dococr_backend/uploads/"+ request.file.filename;
+    uploadICToGoogleDrive(request.file);
 
     console.log(request.body);
     pool.query(`INSERT INTO customer (customer_name, ic, age, gender, 
@@ -61,6 +61,11 @@ export const updateCustomerByID = (request, response) => {
         home_phone,office_phone,monthly_income,duties,business_nature} = request.body
     
     var customer_ic_path = "D:/DocOCR/dococr_backend/uploads/"+ request.file.filename;
+
+    // Upload to Folder in Google Drive
+    uploadICToGoogleDrive(request.file);
+
+    // Need to figure out how to get File ID from Google Drive and Post it to Supabase
 
     console.log(customer_ic_path);
     pool.query(`UPDATE customer SET customer_name = $1, ic = $2, age = $3, gender = $4, 
