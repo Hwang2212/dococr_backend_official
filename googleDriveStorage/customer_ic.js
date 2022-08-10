@@ -1,16 +1,16 @@
 import {driveService} from '../middleware/googleservice.js';
 import { customerICDrive } from '../configs/gdrivefolder.js';
 import {Stream} from 'stream';
+import * as fs from 'fs';
 
 
 
 export const uploadICToGoogleDrive = async (file) => {
-    const bufferStream = new Stream.PassThrough();
-    bufferStream.end(file.buffer);
+
     const { data } = await driveService.files.create({
       media: {
         mimeType: file.mimeType,
-        body: bufferStream,
+        body: fs.createReadStream(`D:/DocOCR/dococr_backend/uploads/${file.originalname}`),
       },
       requestBody: {
         name: file.originalname,
@@ -18,5 +18,7 @@ export const uploadICToGoogleDrive = async (file) => {
       },
       fields: 'id,name',
     });
-    console.log(`Uploaded file ${data.name} ${data.id}`);
+    // console.log(`Uploaded file ${data.name} ${data.id}`);
+    // console.log(data.id);
+    return data.id;
   };
