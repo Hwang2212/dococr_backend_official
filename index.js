@@ -28,7 +28,7 @@ app.get('/', (request,response)=>{
 app.get('/customer', getCustomers)
 app.get('/customer/:id', getCustomerByID)
 app.post('/customer', upload.single("customer_ic_path"), createCustomers)
-app.put('/customer/:id', upload.single("customer_ic_path"), updateCustomerByID)
+app.patch('/customer/:id', upload.single("customer_ic_path"), updateCustomerByID)
 
 // Health Questionnaire Routes
 app.get('/health', getHealth)
