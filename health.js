@@ -1,5 +1,4 @@
 import {pool} from './configs/db.js'
-import {uploadICToGoogleDrive} from './googleDriveStorage/customer_ic.js'
 
 
 pool.on('error', ()=>{
@@ -38,28 +37,22 @@ export const getHealthByID = (request,response) => {
         response.status(200).json(data.rows)
     })
 }
+
 export const createHealth = async (request, response) => {
+    const cust_id = parseInt(request.params.cust_id)
 
-    let {} = request.body
+    let {uw_id, height, weight, current_ill, five_years_ill, hazardact, rejectinsurance, hiv, alcoholic, ancestral_ill, ancestral_desc  } = request.body
         
+    console.log(request.body);
 
-    // uploadGDrive.then((result)=>{
-    //     var customer_ic_driveid = result
-    //     return customer_ic_driveid
-    //     // https://drive.google.com/uc?id=FILE_ID
-    // });
-
-
-    // console.log(request.body);
-    pool.query(`INSERT INTO healthquestion () VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16, $17) RETURNING *`, 
-    [customer_name, ic, age, gender, email, phone_number, marital_status,race,nationality,corr_address,
-        home_phone,office_phone,monthly_income,duties,business_nature,customer_ic_path, customer_ic_driveid], 
+    pool.query(`INSERT INTO healthquestion (uw_id, height, weight, current_ill, five_years_ill, hazardact, rejectinsurance, hiv, alcoholic, ancestral_ill, ancestral_desc, cust_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *`, 
+    [uw_id, height, weight, current_ill, five_years_ill, hazardact, rejectinsurance, hiv, alcoholic, ancestral_ill, ancestral_desc, cust_id], 
     (error, data)=>{
         if (error) {
             throw error
         }
 
-        response.status(200).send(`Customer added with ID: ${data.rows[0].id}`)
+        response.status(200).send(`Health Details added with Customer ID: ${data.rows[0].cust_id}`)
         var datas = data.rows[0] 
     })
 }

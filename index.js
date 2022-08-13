@@ -4,18 +4,20 @@ import cors from 'cors';
 import bodyParser from "body-parser";
 import { upload } from './middleware/upload.js';
 import {getCustomers,getCustomerByID,createCustomers, updateCustomerByID} from './customer.js';
-import { getHealth, getHealthByID, getHealthByCustomerID } from './health.js';
-
+import { getHealth, getHealthByID, getHealthByCustomerID, createHealth } from './health.js';
+import multer from 'multer'; 
 
 
 
 export var app = express()
 const PORT = 5000;
+
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true,
 }))
+
 console.log();
 
 
@@ -30,10 +32,12 @@ app.get('/customer/:id', getCustomerByID)
 app.post('/customer', upload.single("customer_ic_path"), createCustomers)
 app.patch('/customer/:id', upload.single("customer_ic_path"), updateCustomerByID)
 
+app.use(upload.array())
 // Health Questionnaire Routes
 app.get('/health', getHealth)
 app.get('/health/:id', getHealthByID)
 app.get('/health/customer/:cust_id', getHealthByCustomerID)
+app.post('/health/customer/:cust_id', createHealth)
 
 
 app.listen(PORT, ()=> {
