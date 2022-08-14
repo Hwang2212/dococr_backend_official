@@ -4,8 +4,9 @@ import cors from 'cors';
 import bodyParser from "body-parser";
 import { upload } from './middleware/upload.js';
 import {getCustomers,getCustomerByID,createCustomers, updateCustomerByID} from './customer.js';
-import { getHealth, getHealthByID, getHealthByCustomerID, createHealth } from './health.js';
+import { getHealth, getHealthByID, getHealthByCustomerID, createHealth, updateHealthByID } from './health.js';
 import multer from 'multer'; 
+import { createUnderwrite } from './underwrite.js';
 
 
 
@@ -38,6 +39,10 @@ app.get('/health', getHealth)
 app.get('/health/:id', getHealthByID)
 app.get('/health/customer/:cust_id', getHealthByCustomerID)
 app.post('/health/customer/:cust_id', createHealth)
+app.put('/health/customer/:cust_id/:id', updateHealthByID)
+
+
+app.post('/underwrite', createUnderwrite)
 
 
 app.listen(PORT, ()=> {

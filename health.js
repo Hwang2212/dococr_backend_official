@@ -61,23 +61,20 @@ export const createHealth = async (request, response) => {
 export const updateHealthByID = async (request, response) => {
     const id = parseInt(request.params.id)
 
-    let {customer_name, ic, age, gender, email, phone_number, marital_status,race,nationality,corr_address,
-        home_phone,office_phone,monthly_income,duties,business_nature} = request.body
-    
-    console.log(request.file.filename);
-    var customer_ic_path = "D:/DocOR/dococr_backend/uploads/"+ request.file.filename;
+    const cust_id = parseInt(request.params.cust_id)
 
-    // Upload to Folder in Google Drive
-    let customer_ic_driveid = await uploadICToGoogleDrive(request.file);
+    let {uw_id, height, weight, current_ill, five_years_ill, hazardact, rejectinsurance, hiv, alcoholic, ancestral_ill, ancestral_desc  } = request.body
+        
+    console.log(request.body);
+
 
     // Need to figure out how to get File ID from Google Drive and Post it to Supabase
 
     
-    pool.query(`UPDATE customer SET customer_name = $1, ic = $2, age = $3, gender = $4, 
-        email = $5, phone_number = $6, marital_status = $7, race = $8, nationality = $9, corr_address = $10,
-        home_phone = $11, office_phone = $12, monthly_income = $13, duties = $14,business_nature = $15, customer_ic_path = $16, customer_ic_driveid = $17 WHERE id=$18`, 
-    [customer_name, ic, age, gender, email, phone_number, marital_status,race,nationality,corr_address,
-        home_phone,office_phone,monthly_income,duties,business_nature, customer_ic_path, customer_ic_driveid, id], 
+    pool.query(`UPDATE healthquestion SET uw_id = $1, height = $2, weight = $3, current_ill = $4, 
+    five_years_ill = $5, hazardact = $6, rejectinsurance = $7, hiv = $8, alcoholic = $9, ancestral_ill = $10,
+    ancestral_desc = $11, cust_id = $12 WHERE id=$13`, 
+    [uw_id, height, weight, current_ill, five_years_ill, hazardact, rejectinsurance, hiv, alcoholic, ancestral_ill, ancestral_desc, cust_id, id],  
     (error, data)=>{
         if (error) {
             console.log(error);
