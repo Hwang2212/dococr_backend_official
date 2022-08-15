@@ -14,16 +14,13 @@ const storage = multer.diskStorage({
 // Filtering Files
 const fileFilter = (request, file, callback)=>{
 
-    const validExts = [".png", ".jpg", ".jpeg"];
+    const validExts = [".png", ".jpg", ".jpeg", ".pdf"];
 
     if (!validExts.includes(path.extname(file.originalname))) {
         return callback(new Error("Only .png, .jpeg and .jpg format allowed"))
     }
 
     const fileSize = parseInt(request.headers["content-length"]);
-    if(fileSize > 1048576){
-        return callback(new Error("File Size is Big"));
-    }
 
     callback(null, true)
 };

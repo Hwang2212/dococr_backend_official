@@ -1,5 +1,5 @@
 import {pool} from './configs/db.js'
-import {uploadICToGoogleDrive} from './googleDriveStorage/customer_ic.js'
+import {uploadICToGoogleDrive} from './googleDriveStorage/gs_customer_ic.js'
 
 
 pool.on('error', ()=>{
