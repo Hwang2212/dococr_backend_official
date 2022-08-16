@@ -20,8 +20,6 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }))
 
-console.log();
-
 
 
 app.get('/', (request,response)=>{
@@ -42,9 +40,10 @@ app.get('/health/customer/:cust_id',upload.array(), getHealthByCustomerID)
 app.post('/health/customer/:cust_id',upload.array(), createHealth)
 app.put('/health/customer/:cust_id/:id',upload.array(), updateHealthByID)
 
-
+// Underwriting Route
 app.post('/underwrite', createUnderwrite)
 
+// Upload Underwriting Form Route
 app.post('/underwrite/upload', upload.single("uw_filepath"),  uploadUnderwritingForm)
 
 app.listen(PORT, ()=> {

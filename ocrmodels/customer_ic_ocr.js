@@ -1,7 +1,7 @@
 import Tesseract from "tesseract.js";
 
 Tesseract.recognize(
-    './uploads/bean.png',
+    'D:/DocOCR/dococr_backend/customerpdf/customerpage1of7.jpg',
     'eng',
     {
         logger: m => console.log(m)

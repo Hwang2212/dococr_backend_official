@@ -18,7 +18,6 @@ export const uploadICToGoogleDrive = async (file) => {
       },
       fields: 'id,name',
     });
-    // console.log(`Uploaded file ${data.name} ${data.id}`);
-    // console.log(data.id);
+
     return data.id;
   };
