@@ -2,7 +2,6 @@
 import vision from '@google-cloud/vision';
 import  {CONFIG}  from '../configs/visionapi.js';
 import {Storage} from '@google-cloud/storage';
-import { text } from 'body-parser';
 
 
 // Configuration of Vision API to extract Text from PDF
