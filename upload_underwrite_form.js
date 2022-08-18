@@ -17,6 +17,15 @@ export const uploadUnderwritingForm = async (request, response, next) => {
     let ocrProcess = await visionPDFProcess(request.file.filename);
     let extractOCRText = await downloadIntoMemory().catch(console.error);
 
+    // let pageOne = extractOCRText[0]
+    // let pageTwo = extractOCRText[1]
+    // let pageThree = extractOCRText[2]
+    // let pageFour = extractOCRText[3]
+    // let pageFive = extractOCRText[4]
+    // let pageSix = extractOCRText[5]
+    // let pageSeven = extractOCRText[6]
+    console.log(extractOCRText);
+
 
     
     pool.query(`INSERT INTO uw_form (file_name, uw_filepath, uw_driveid) VALUES ($1,$2,$3) RETURNING *`, 
