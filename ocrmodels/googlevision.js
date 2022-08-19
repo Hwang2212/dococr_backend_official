@@ -237,19 +237,109 @@ export const  downloadIntoMemory = async () =>  {
     // pageTwoText.push(pageTwoText[i])
   }
   for (let i = 0; i < pageFourText.length; i++) {
-    if(pageFourText[i].includes('duties' || 'Tanggungjawab')){
+    if(pageFourText[i].includes('Basic' || 'Planname' || "Namapelan")){
       pageFourTextList.push(pageFourText[i+1])
       break;
     }
   }
+  for (let i = 0; i < pageFourText.length; i++) {
+    if(pageFourText[i].includes('Tempoh' || 'tahun')){
+      pageFourTextList.push(pageFourText[i+1])
+      break;
+    }
+  }
+  for (let i = 0; i < pageFourText.length; i++) {
+    if(pageFourText[i].includes('Jumlahyang' && 'diinsuranskan')){
+      pageFourTextList.push(pageFourText[i+1])
+      break;
+    }
+  }
+  // Skip this loop Installment Premium
+  for (let i = 0; i < pageFourText.length; i++) {
+    if(pageFourText[i].includes('Premiumansuran')){
+      pageFourTextList.push(pageFourText[i+1])
+      break;
+    }
+  }
+
+/////////////////////////////////////////////////////////////////////////////////
+  // Page Five Data Processing
+  let pageFiveText = pageFive.split("\n");
+  let pageFiveTextList = [];
+  for (let i = 0; i < pageFiveText.length; i++) {
+    pageFiveText[i]=pageFiveText[i].replaceAll(' ','')
+    // pageTwoText.push(pageTwoText[i])
+  }
+  for (let i = 0; i < pageFiveText.length; i++) {
+    if(pageFiveText[i].includes('jeniskadkredit' || 'cardtype')){
+      for (let j = i +1; i < j; j++) {
+        if (!pageFiveText[j].includes('✓')) {
+          continue
+        }else{
+          pageFiveTextList.push(pageFiveText[j].substring(1))
+          break
+        }
+      }
+      break;
+    }
+  }
+  for (let i = 0; i < pageFiveText.length; i++) {
+    if(pageFiveText[i].includes('cardnumber')){
+      pageFiveTextList.push(pageFiveText[i+1].replaceAll('-',''))
+      break;
+    }
+  }
+  for (let i = 0; i < pageFiveText.length; i++) {
+    if(pageFiveText[i].includes('issuingbank' || 'pengeluarkad')){
+      pageFiveTextList.push(pageFiveText[i+1])
+      break;
+    }
+  }
+  // Skip this loop Installment Premium
+  for (let i = 0; i < pageFiveText.length; i++) {
+    if(pageFiveText[i].includes('Cardexpirydate')){
+      if (!isNaN(pageFiveText[i].substr(-4))) {
+        pageFiveTextList.push(pageFiveText[i].substr(-4))
+        break;
+      }else{
+      pageFiveTextList.push(pageFiveText[i+1])
+      break;
+      }
+    }
+  }
+  for (let i = 0; i < pageFiveText.length; i++) {
+    if(pageFiveText[i].includes('Height' || 'Tinggi')){
+      pageFiveTextList.push(pageFiveText[i+1])
+      break;
+    }
+  }
+  for (let i = 0; i < pageFiveText.length; i++) {
+    if(pageFiveText[i].includes('kg')){
+      pageFiveTextList.push(pageFiveText[i].replaceAll('kg',''))
+      break;
+    }
+  }
   
-console.log(pageFourText);
-return pageFourTextList
+let allPageList = []
+
+allPageList.push(pageOneTextList,pageTwoTextList,pageThreeTextList,pageFourTextList,pageFiveTextList)
+// console.log(allPageList);
+return allPageList
 }
 
 
-let getText = await downloadIntoMemory().catch(console.error)
-console.log(getText);
+// let getText = await downloadIntoMemory().catch(console.error)
+// console.log(getText[0][0]);
+
+// Page 1 Return List
+// [
+//   'Product',
+//   'Test is Important',
+//   'P0001',
+//   '120210321',
+//   '3200',
+//   'Customer'
+// ]
 
 // Page 2 Return List:
 // [
@@ -267,6 +357,11 @@ console.log(getText);
 // Page 3 Return List:
 // [ 'Job', 'Insurance', 'InMalaysia', 'Malaysia', '12345' ]
 
+// Page 4 Return List
+// [ 'SomePlan', '5', '50000', '8.' ]
+
+// Page 5 Return List
+// [ 'VISA', '1234565665432345', 'MalayanBank', '0225', '123', '54' ]
 
 // Code Below: Detecting Text from Images
 // async function detectText(fileName) {

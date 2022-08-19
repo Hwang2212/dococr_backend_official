@@ -1,24 +1,33 @@
-// let pageTwoText = pageTwo.split("\n");
-//   let pageTwoTextList = [];
-//   for (let i = 0; i < pageTwoText.length; i++) {
-//     if(pageTwoText[i].includes('Product Name' || 'Nama Produk')){
-//       pageTwoTextList.push(pageTwoText[i+1])
+// /////////////////////////////////////////////////////////////////////////////////
+//   // Page Five Data Processing
+//   let pageFiveText = pageFive.split("\n");
+//   let pageFiveTextList = [];
+//   for (let i = 0; i < pageFiveText.length; i++) {
+//     pageFiveText[i]=pageFiveText[i].replaceAll(' ','')
+//     // pageTwoText.push(pageTwoText[i])
+//   }
+//   for (let i = 0; i < pageFiveText.length; i++) {
+//     if(pageFiveText[i].includes('Basic' || 'Planname' || "Namapelan")){
+//       pageFiveTextList.push(pageFiveText[i+1])
+//       break;
 //     }
-//     else if (pageTwoText[i].includes('Remarks' || 'Catat')) {
-//       pageTwoTextList.push(pageTwoText[i+1])
+//   }
+//   for (let i = 0; i < pageFiveText.length; i++) {
+//     if(pageFiveText[i].includes('Tempoh' || 'tahun')){
+//       pageFiveTextList.push(pageFiveText[i+1])
+//       break;
 //     }
-//     else if (pageTwoText[i].includes('POLICY NO.' || 'NO. POLISI')) {
-//       pageTwoTextList.push(pageTwoText[i+1])
+//   }
+//   for (let i = 0; i < pageFiveText.length; i++) {
+//     if(pageFiveText[i].includes('Jumlahyang' && 'diinsuranskan')){
+//       pageFiveTextList.push(pageFiveText[i+1])
+//       break;
 //     }
-//     else if (pageTwoText[i].includes('Product Code'||'Kod Produk')) {
-//       if (!isNaN(pageTwoText[i].substr(-4))) {
-//         pageTwoTextList.push(pageTwoText[i].substr(-4))
-//       }else{pageTwoTextList.push(pageTwoText[i+1])} 
+//   }
+//   // Skip this loop Installment Premium
+//   for (let i = 0; i < pageFiveText.length; i++) {
+//     if(pageFiveText[i].includes('Premiumansuran')){
+//       pageFiveTextList.push(pageFiveText[i+1])
+//       break;
 //     }
-//     else if (pageTwoText[i].includes('BANK IN SLIP NO.'||'NO. SLIP BANK DEPOSIT' || 'BANK IN SUP NO.')) {
-//       pageTwoTextList.push(pageTwoText[i+1])
-//     }
-//     else if (pageTwoText[i] === 'Nama penuh (seperti dalam kad pengenalan)') {
-//       pageTwoTextList.push(pageTwoText[i+1])
-//     }
-// }
+//   }
