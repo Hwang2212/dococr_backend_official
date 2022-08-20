@@ -6,7 +6,7 @@ import { upload } from './middleware/upload.js';
 // import { uploadunderwrite } from './middleware/upload_underwrite.js';
 import {getCustomers,getCustomerByID,createCustomers, updateCustomerByID} from './customer.js';
 import { getHealth, getHealthByID, getHealthByCustomerID, createHealth, updateHealthByID } from './health.js';
-import { createUnderwrite } from './underwrite.js';
+import { createUnderwrite, updateUnderwriteByID, getPDFByCustomerID, getUnderwritingFormByCustomerID } from './underwrite.js';
 import { uploadUnderwritingForm } from './upload_underwrite_form.js';
 import { uploadPDFToGoogleDriveBucket } from './google_bucket.js';
 
@@ -41,8 +41,12 @@ app.get('/health/customer/:cust_id',upload.array(), getHealthByCustomerID)
 app.post('/health/customer/:cust_id',upload.array(), createHealth)
 app.put('/health/customer/:cust_id/:id',upload.array(), updateHealthByID)
 
+app.get('/pdf/customer/:cust_id',upload.array(), getPDFByCustomerID)
+
 // Underwriting Route
-app.post('/underwrite', createUnderwrite)
+app.post('/underwrite',upload.array(), createUnderwrite)
+app.get('/underwrite/customer/:cust_id',upload.array(), getUnderwritingFormByCustomerID)
+app.put('/underwrite/:cust_id/:health_id/:underwrite_id',upload.array(), updateUnderwriteByID)
 
 // Upload Underwriting Form Route
 app.post ('/underwrite/upload', upload.single("uw_filepath"), uploadUnderwritingForm)

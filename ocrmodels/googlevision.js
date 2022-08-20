@@ -43,12 +43,15 @@ const [filesResponse] = await operation.promise();
 
 
 
+
+
 // CONFIGURING FOR READING JSON FILE FROM GOOGLE DRIVE BUCKET
 
 const jsonFile = 'output-1-to-7.json';
 const storage = new Storage(CONFIG);
 
-export const  downloadIntoMemory = async () =>  {
+// Process JSON from Google Drive Bucket
+export const  getJsonFile = async () =>  {
   const bucketName = 'formpdf_bucket';
   // Downloads the file into a buffer in memory.
   const contents = await storage.bucket(bucketName).file(jsonFile).download();
@@ -255,6 +258,7 @@ export const  downloadIntoMemory = async () =>  {
     }
   }
   // Skip this loop Installment Premium
+  // Reason: Data Too Noisy, lots of number so hard to get the actual data
   for (let i = 0; i < pageFourText.length; i++) {
     if(pageFourText[i].includes('Premiumansuran')){
       pageFourTextList.push(pageFourText[i+1])
@@ -319,13 +323,15 @@ export const  downloadIntoMemory = async () =>  {
       break;
     }
   }
-  
+
+  // Difficult to get Data with ✓ Type, So Health Questionnaire is empty
 let allPageList = []
 
 allPageList.push(pageOneTextList,pageTwoTextList,pageThreeTextList,pageFourTextList,pageFiveTextList)
 // console.log(allPageList);
 return allPageList
 }
+getJsonFile()
 
 
 // let getText = await downloadIntoMemory().catch(console.error)
@@ -380,26 +386,3 @@ return allPageList
 // let extractedText = await detectText(file);
 
 
-// // Page 1 Data Processing
-// let pageOne = extractedText.split("\n");
-
-// // PDFParse is also a package to extract text directly from pdf files
-// // let textObject = {};
-// let newList = [];
-// for (let i = 0; i < pageOne.length; i++) {
-//   if(pageOne[i] === 'Product Name / Nama Produk'){
-//     newList.push(pageOne[i+1])
-//     console.log(pageOne[i+1]);
-//     // return array[i+1]
-//   }else if (pageOne[i] === 'Remarks/Catatan') {
-//     newList.push(pageOne[i+1])
-//   }else if (pageOne[i] === 'POLICY NO./NO. POLISI') {
-//     newList.push(pageOne[i+1])
-//   }else if (pageOne[i] === 'BANK IN SUP NO./NO. SLIP BANK DEPOSIT') {
-//     newList.push(pageOne[i+1])
-//   }else if (pageOne[i] === 'Nama penuh (seperti dalam kad pengenalan)') {
-//     newList.push(pageOne[i+1])
-//   }
-// }
-// // [ 'product_name: Product', 'remarks: Test is Important', 'policy_no: P0001', 'bank_slip_no: 120210321', 'customer_name: Customer' ]
-// console.log(newList);
