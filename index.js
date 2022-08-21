@@ -51,6 +51,6 @@ app.put('/underwrite/:cust_id/:health_id/:underwrite_id',upload.array(), updateU
 // Upload Underwriting Form Route
 app.post ('/underwrite/upload', upload.single("uw_filepath"), uploadUnderwritingForm)
 
-app.listen(PORT, ()=> {
+app.listen(process.env.PORT || 5000, ()=> {
   console.log(`Server running on port http://localhost:${PORT}`)
 });
